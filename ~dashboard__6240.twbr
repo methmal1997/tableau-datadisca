@@ -319,6 +319,7 @@
       </column>
       <column datatype='string' name='[Country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
       <column datatype='integer' name='[Customer ID]' role='dimension' type='ordinal' />
+      <column datatype='string' name='[Description]' role='dimension' type='nominal' />
       <column caption='Invoice Date' datatype='datetime' name='[InvoiceDate]' role='dimension' type='ordinal' />
       <column datatype='real' name='[Price]' role='measure' type='quantitative' />
       <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
@@ -414,6 +415,12 @@
         <table-calc aggregation='Sum' from='-2' ordering-type='Rows' to='0' type='WindowTotal' window-options='IncludeCurrent' />
       </column-instance>
       <column-instance column='[InvoiceDate]' derivation='Year' name='[yr:InvoiceDate:ok]' pivot='key' type='ordinal' />
+      <group caption='Action (Description,YEAR(Invoice Date))' hidden='true' name='[Action (Description,YEAR(Invoice Date))]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[Description]' />
+          <groupfilter function='level-members' level='[yr:InvoiceDate:ok]' />
+        </groupfilter>
+      </group>
       <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' rowDisplayCount='100' show-structure='true' />
       <style>
         <style-rule element='mark'>
@@ -18562,70 +18569,19 @@
       </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
     </datasource>
   </datasources>
+  <actions>
+    <action caption='Filter1' name='[Action1_35692474B50E4FCDBF1C0A3C93532D7A]'>
+      <activation type='on-hover' />
+      <source dashboard='Dashboard 1' type='sheet' worksheet='Top left' />
+      <command command='tsc:tsl-filter'>
+        <param name='exclude' value='Top left' />
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dashboard 1' />
+      </command>
+    </action>
+  </actions>
   <worksheets>
-    <worksheet name='Sheet 1'>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
-          </datasources>
-          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
-            <column caption='SUM([Quantity]*[Price])' datatype='real' name='[Calculation_1092967341816922112]' role='measure' type='quantitative' user:unnamed='Sheet 1'>
-              <calculation class='tableau' formula='SUM([Quantity]*[Price])' />
-            </column>
-            <column datatype='string' name='[Description]' role='dimension' type='nominal' />
-            <column datatype='real' name='[Price]' role='measure' type='quantitative' />
-            <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
-            <column caption='Stock Code' datatype='string' name='[StockCode]' role='dimension' type='nominal' />
-            <column-instance column='[Description]' derivation='None' name='[none:Description:nk]' pivot='key' type='nominal' />
-            <column-instance column='[StockCode]' derivation='None' name='[none:StockCode:nk]' pivot='key' type='nominal' />
-            <column-instance column='[Price]' derivation='Sum' name='[sum:Price:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Quantity]' derivation='Sum' name='[sum:Quantity:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Calculation_1092967341816922112]' derivation='User' name='[usr:Calculation_1092967341816922112:qk]' pivot='key' type='quantitative' />
-          </datasource-dependencies>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]'>
-            <groupfilter function='union' user:op='manual'>
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]&quot;' />
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Quantity:qk]&quot;' />
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341816922112:qk]&quot;' />
-            </groupfilter>
-          </filter>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]'>
-            <groupfilter function='level-members' level='[none:Description:nk]' user:ui-manual-selection='true' user:ui-manual-selection-all-when-empty='true' user:ui-manual-selection-is-empty='true' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]'>
-            <groupfilter function='level-members' level='[none:StockCode:nk]' user:ui-manual-selection='true' user:ui-manual-selection-all-when-empty='true' user:ui-manual-selection-is-empty='true' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]' included-values='in-range'>
-            <min>-295228.15999999997</min>
-            <max>1502812.2999999984</max>
-          </filter>
-          <slices>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]</column>
-          </slices>
-          <aggregation value='true' />
-        </view>
-        <style />
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <encodings>
-              <color column='[federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]' />
-            </encodings>
-          </pane>
-        </panes>
-        <rows>[federated.17er4yf0rfizty1cyl5fy09712a1].[Multiple Values]</rows>
-        <cols>([federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk] / ([federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk] / [federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]))</cols>
-      </table>
-      <simple-id uuid='{F261737C-36F5-426D-BACB-60707CC2782B}' />
-    </worksheet>
-    <worksheet name='Sheet 2'>
+    <worksheet name='Left bottom'>
       <table>
         <view>
           <datasources>
@@ -18637,179 +18593,37 @@
                 <table-calc ordering-type='Rows' />
               </calculation>
             </column>
-            <column datatype='string' name='[Description]' role='dimension' type='nominal' />
-            <column caption='Invoice Date' datatype='datetime' name='[InvoiceDate]' role='dimension' type='ordinal' />
+            <column datatype='string' name='[Country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+            <column datatype='integer' name='[Customer ID]' role='dimension' type='ordinal' />
+            <column datatype='integer' name='[Invoice]' role='measure' type='quantitative' />
             <column datatype='real' name='[Price]' role='measure' type='quantitative' />
             <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
-            <column-instance column='[Description]' derivation='None' name='[none:Description:nk]' pivot='key' type='nominal' />
-            <column-instance column='[Price]' derivation='Sum' name='[sum:Price:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Quantity]' derivation='Sum' name='[sum:Quantity:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:ok]' pivot='key' type='ordinal'>
-              <table-calc ordering-type='Rows' />
+            <column-instance column='[Country]' derivation='Max' name='[max:Country:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Customer ID]' derivation='None' name='[none:Customer ID:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Price]' derivation='Sum' name='[pcto:sum:Price:qk:2]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Table' type='PctTotal' />
             </column-instance>
-            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk]' pivot='key' type='quantitative'>
-              <table-calc ordering-type='Rows' />
+            <column-instance column='[Quantity]' derivation='Sum' name='[pcto:sum:Quantity:qk:2]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Table' type='PctTotal' />
             </column-instance>
-            <column-instance column='[InvoiceDate]' derivation='Year' name='[yr:InvoiceDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Customer ID]' derivation='Sum' name='[pcva:sum:Customer ID:qk:2]' pivot='key' type='quantitative'>
+              <table-calc diff-options='Relative' ordering-type='Rows' type='PctValue'>
+                <address>
+                  <value>-1</value>
+                </address>
+              </table-calc>
+            </column-instance>
+            <column-instance column='[Invoice]' derivation='Sum' name='[sum:Invoice:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk:7]' pivot='key' type='quantitative'>
+              <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]' ordering-type='Field' />
+            </column-instance>
           </datasource-dependencies>
-          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' included-values='in-range'>
+          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:7]' included-values='in-range'>
             <min>1</min>
-            <max>5659</max>
-          </filter>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]'>
-            <groupfilter from='2009' function='range' level='[yr:InvoiceDate:ok]' to='2011' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <max>1074</max>
           </filter>
           <slices>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]</column>
-          </slices>
-          <aggregation value='true' />
-        </view>
-        <style />
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Bar' />
-            <encodings>
-              <color column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' />
-              <lod column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:ok]' />
-              <lod column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:ok]' />
-              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]' />
-              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Quantity:qk]' />
-            </encodings>
-          </pane>
-        </panes>
-        <rows>[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]</rows>
-        <cols>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]</cols>
-      </table>
-      <simple-id uuid='{2B6161BD-B1D7-4000-A25E-3347880649B2}' />
-    </worksheet>
-    <worksheet name='Sheet 3'>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
-          </datasources>
-          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
-            <column caption='index' datatype='integer' name='[Calculation_1092967341827436546]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='INDEX()'>
-                <table-calc ordering-type='Rows' />
-              </calculation>
-            </column>
-            <column caption='SUM([Price]*[Quantity])' datatype='real' name='[Calculation_1092967341861605379]' role='measure' type='quantitative' user:unnamed='Sheet 3'>
-              <calculation class='tableau' formula='SUM([Price]*[Quantity])' />
-            </column>
-            <column datatype='real' name='[Price]' role='measure' type='quantitative' />
-            <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
-            <column caption='Stock Code' datatype='string' name='[StockCode]' role='dimension' type='nominal' />
-            <column-instance column='[StockCode]' derivation='None' name='[none:StockCode:nk]' pivot='key' type='nominal' />
-            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk]' pivot='key' type='quantitative'>
-              <table-calc ordering-type='Rows' />
-            </column-instance>
-            <column-instance column='[Calculation_1092967341861605379]' derivation='User' name='[usr:Calculation_1092967341861605379:qk]' pivot='key' type='quantitative' />
-          </datasource-dependencies>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]'>
-            <groupfilter function='level-members' level='[none:StockCode:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' included-values='in-range'>
-            <max>3060</max>
-          </filter>
-          <slices>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]</column>
-          </slices>
-          <aggregation value='true' />
-        </view>
-        <style />
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <style>
-              <style-rule element='mark'>
-                <format attr='mark-labels-show' value='false' />
-              </style-rule>
-            </style>
-          </pane>
-        </panes>
-        <rows>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341861605379:qk]</rows>
-        <cols>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]</cols>
-      </table>
-      <simple-id uuid='{C16A462D-A006-4E2C-AC9F-FFC30617D894}' />
-    </worksheet>
-    <worksheet name='Sheet 4'>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
-          </datasources>
-          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
-            <column caption='SUM([Price]*[Quantity])' datatype='real' name='[Calculation_1092967341902159880]' role='measure' type='quantitative' user:unnamed='Sheet 4'>
-              <calculation class='tableau' formula='SUM([Price]*[Quantity])' />
-            </column>
-            <column datatype='string' name='[Description]' role='dimension' type='nominal' />
-            <column datatype='real' name='[Price]' role='measure' type='quantitative' />
-            <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
-            <column caption='Stock Code' datatype='string' name='[StockCode]' role='dimension' type='nominal' />
-            <column-instance column='[Description]' derivation='None' name='[none:Description:nk]' pivot='key' type='nominal' />
-            <column-instance column='[StockCode]' derivation='None' name='[none:StockCode:nk]' pivot='key' type='nominal' />
-            <column-instance column='[Price]' derivation='Sum' name='[sum:Price:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Quantity]' derivation='Sum' name='[sum:Quantity:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Calculation_1092967341902159880]' derivation='User' name='[usr:Calculation_1092967341902159880:qk]' pivot='key' type='quantitative' />
-          </datasource-dependencies>
-          <aggregation value='true' />
-        </view>
-        <style />
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-          </pane>
-          <pane id='1' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Quantity:qk]'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-          </pane>
-          <pane id='2' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-          </pane>
-        </panes>
-        <rows>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341902159880:qk]</rows>
-        <cols>(([federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk] / [federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]) * ([federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Quantity:qk] + [federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]))</cols>
-      </table>
-      <simple-id uuid='{5A791C79-135E-407E-816D-0C7AF5682606}' />
-    </worksheet>
-    <worksheet name='Sheet 7'>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
-          </datasources>
-          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
-            <column caption='index' datatype='integer' name='[Calculation_1092967341827436546]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='INDEX()'>
-                <table-calc ordering-type='Rows' />
-              </calculation>
-            </column>
-            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk]' pivot='key' type='quantitative'>
-              <table-calc ordering-type='Rows' />
-            </column-instance>
-          </datasource-dependencies>
-          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' included-values='in-range'>
-            <max>1</max>
-          </filter>
-          <slices>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]</column>
+            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:7]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -18820,6 +18634,31 @@
               <breakdown value='auto' />
             </view>
             <mark class='Circle' />
+            <encodings>
+              <color column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]' />
+              <size column='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Invoice:qk]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[pcva:sum:Customer ID:qk:2]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Quantity:qk:2]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Price:qk:2]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[max:Country:nk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#787878'>Customer ID:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[pcva:sum:Customer ID:qk:2]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Invoice:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Invoice:qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Quantity presantage:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Quantity:qk:2]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Price presantage:     </run>
+                <run fontcolor='#000000'><![CDATA[  <[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Price:qk:2]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#000000'><![CDATA[Custemer country for most purchased  <[federated.17er4yf0rfizty1cyl5fy09712a1].[max:Country:nk]>]]></run>
+              </formatted-text>
+            </customized-tooltip>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-cull' value='true' />
@@ -18835,10 +18674,145 @@
             </style>
           </pane>
         </panes>
-        <rows>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]</rows>
+        <rows />
         <cols />
       </table>
       <simple-id uuid='{290A825A-F561-44F9-977D-6D1B2ED1C7AF}' />
+    </worksheet>
+    <worksheet name='Right bottom'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
+          </datasources>
+          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
+            <column caption='index' datatype='integer' name='[Calculation_1092967341827436546]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='INDEX()'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column datatype='string' name='[Country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+            <column datatype='integer' name='[Customer ID]' role='dimension' type='ordinal' />
+            <column datatype='real' name='[Price]' role='measure' type='quantitative' />
+            <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
+            <column-instance column='[Customer ID]' derivation='Attribute' name='[attr:Customer ID:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Country]' derivation='Max' name='[max:Country:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Customer ID]' derivation='None' name='[none:Customer ID:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Price]' derivation='Sum' name='[pcto:sum:Price:qk:2]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Table' type='PctTotal' />
+            </column-instance>
+            <column-instance column='[Quantity]' derivation='Sum' name='[pcto:sum:Quantity:qk:2]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Table' type='PctTotal' />
+            </column-instance>
+            <column-instance column='[Price]' derivation='Sum' name='[sum:Price:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk:7]' pivot='key' type='quantitative'>
+              <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]' ordering-type='Field' />
+            </column-instance>
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:7]' included-values='in-range'>
+            <min>1</min>
+            <max>430</max>
+          </filter>
+          <slices>
+            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:7]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <color column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]' />
+              <size column='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Price:qk]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[attr:Customer ID:qk]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Quantity:qk:2]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Price:qk:2]' />
+              <tooltip column='[federated.17er4yf0rfizty1cyl5fy09712a1].[max:Country:nk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#787878'>Customer ID:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[attr:Customer ID:qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Price:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Price:qk:2]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Presentage from total quantity </run>
+                <run fontcolor='#000000'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Quantity:qk:2]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Presentage from total Price </run>
+                <run fontcolor='#000000'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Price:qk:2]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#000000'><![CDATA[Cutomer country for most purchase <[federated.17er4yf0rfizty1cyl5fy09712a1].[max:Country:nk]>]]></run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-line-first' value='true' />
+                <format attr='mark-labels-line-last' value='true' />
+                <format attr='mark-labels-range-min' value='true' />
+                <format attr='mark-labels-range-max' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-range-scope' value='pane' />
+                <format attr='mark-labels-range-field' value='' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{45C9B150-9A20-42C6-903F-47137F3BD048}' />
+    </worksheet>
+    <worksheet name='Sheet 5'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
+          </datasources>
+          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
+            <column caption='index' datatype='integer' name='[Calculation_1092967341827436546]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='INDEX()'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column datatype='integer' name='[Customer ID]' role='dimension' type='ordinal' />
+            <column-instance column='[Customer ID]' derivation='None' name='[none:Customer ID:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk:8]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Columns' />
+            </column-instance>
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:8]' included-values='in-range'>
+            <min>1</min>
+            <max>4538</max>
+          </filter>
+          <slices>
+            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:8]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:8]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]</rows>
+        <cols />
+      </table>
+      <simple-id uuid='{33D43075-3CF4-45E4-9504-52FE27367A24}' />
     </worksheet>
     <worksheet name='Top Right'>
       <table>
@@ -18872,19 +18846,23 @@
             <column-instance column='[Calculation_1092967341974142989]' derivation='User' name='[usr:Calculation_1092967341974142989:qk]' pivot='key' type='quantitative' />
             <column-instance column='[InvoiceDate]' derivation='Year' name='[yr:InvoiceDate:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[Action (Description,YEAR(Invoice Date))]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action1_35692474B50E4FCDBF1C0A3C93532D7A]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[Description]' member='&quot;PURPLE/COPPER HANGING LAMPSHADE&quot;' />
+              <groupfilter function='member' level='[yr:InvoiceDate:ok]' member='2009' />
+            </groupfilter>
+          </filter>
           <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' included-values='in-range-or-null'>
             <min>1</min>
-            <max>2058</max>
+            <max>3210</max>
           </filter>
           <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]'>
-            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[yr:InvoiceDate:ok]' member='2010' />
-              <groupfilter function='member' level='[yr:InvoiceDate:ok]' member='2011' />
-            </groupfilter>
+            <groupfilter function='level-members' level='[yr:InvoiceDate:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]</column>
             <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]</column>
+            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[Action (Description,YEAR(Invoice Date))]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -18957,11 +18935,14 @@
             <column-instance column='[InvoiceDate]' derivation='Year' name='[yr:InvoiceDate:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
           <filter class='quantitative' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:6]' included-values='in-range'>
-            <min>1</min>
-            <max>1</max>
+            <min>841</min>
+            <max>2731</max>
           </filter>
           <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]'>
-            <groupfilter from='2009' function='range' level='[yr:InvoiceDate:ok]' to='2011' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[yr:InvoiceDate:ok]' member='2009' />
+              <groupfilter function='member' level='[yr:InvoiceDate:ok]' member='2011' />
+            </groupfilter>
           </filter>
           <slices>
             <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:6]</column>
@@ -19023,20 +19004,18 @@
           </calculation>
         </column>
         <column datatype='string' name='[Description]' role='dimension' type='nominal' />
-        <column caption='Invoice Date' datatype='datetime' name='[InvoiceDate]' role='dimension' type='ordinal' />
         <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk:6]' pivot='key' type='quantitative'>
           <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[Description]' ordering-type='Field' />
         </column-instance>
         <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk]' pivot='key' type='quantitative'>
           <table-calc ordering-type='Rows' />
         </column-instance>
-        <column-instance column='[InvoiceDate]' derivation='Year' name='[yr:InvoiceDate:ok]' pivot='key' type='ordinal' />
       </datasource-dependencies>
       <zones>
-        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
-          <zone h='98000' id='7' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-            <zone h='98000' id='5' type-v2='layout-basic' w='50900' x='800' y='1000'>
-              <zone h='98000' id='3' name='Top left' w='50900' x='800' y='1000'>
+        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98000' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='98000' id='3' type-v2='layout-basic' w='49200' x='800' y='1000'>
+              <zone h='98000' id='1' name='Top left' w='49200' x='800' y='1000'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -19045,8 +19024,8 @@
                 </zone-style>
               </zone>
             </zone>
-            <zone fixed-size='475' h='98000' id='6' is-fixed='true' param='vert' type-v2='layout-flow' w='47500' x='51700' y='1000'>
-              <zone h='16000' id='8' name='Top left' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type-v2='filter' w='47500' x='51700' y='1000'>
+            <zone fixed-size='492' h='98000' id='4' is-fixed='true' param='vert' type-v2='layout-flow' w='49200' x='50000' y='1000'>
+              <zone h='6875' id='6' name='Top left' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:6]' show-domain='false' show-null-ctrls='false' type-v2='filter' w='49200' x='50000' y='1000'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -19054,7 +19033,8 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='6875' id='9' name='Top left' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:6]' show-domain='false' show-null-ctrls='false' type-v2='filter' w='47500' x='51700' y='17000'>
+              <zone h='84250' id='8' name='Top Right' w='49200' x='50000' y='7875'>
+                <layout-cache cell-count-w='1' minheight='210' non-cell-size-w='68' type-h='scalable' type-w='cell' />
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -19062,24 +19042,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='9000' id='10' name='Top left' pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type-v2='color' w='47500' x='51700' y='23875'>
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='margin' value='4' />
-                </zone-style>
-              </zone>
-              <zone h='59250' id='11' name='Top Right' w='47500' x='51700' y='32875'>
-                <layout-cache minheight='330' type-h='scalable' type-w='fixed' />
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='margin' value='4' />
-                </zone-style>
-              </zone>
-              <zone h='6875' id='12' name='Top Right' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' show-domain='false' show-null-ctrls='false' type-v2='filter' w='47500' x='51700' y='92125'>
+              <zone h='6875' id='9' name='Top Right' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' show-domain='false' show-null-ctrls='false' type-v2='filter' w='49200' x='50000' y='92125'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -19100,137 +19063,14 @@
       <devicelayouts>
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='850' minheight='850' sizing-mode='vscroll' />
-          <zones>
-            <zone h='100000' id='14' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='13' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
-                <zone h='16000' id='8' mode='checkdropdown' name='Top left' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type-v2='filter' w='47500' x='51700' y='1000'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone h='6875' id='9' name='Top left' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:6]' show-domain='false' show-null-ctrls='false' type-v2='filter' w='47500' x='51700' y='17000'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='280' h='98000' id='3' is-fixed='true' name='Top left' w='50900' x='800' y='1000'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone h='9000' id='10' name='Top left' pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type-v2='color' w='47500' x='51700' y='23875'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone h='6875' id='12' name='Top Right' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' show-domain='false' show-null-ctrls='false' type-v2='filter' w='47500' x='51700' y='92125'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='280' h='59250' id='11' is-fixed='true' name='Top Right' w='47500' x='51700' y='32875'>
-                  <layout-cache minheight='330' type-h='scalable' type-w='fixed' />
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-              </zone>
-              <zone-style>
-                <format attr='border-color' value='#000000' />
-                <format attr='border-style' value='none' />
-                <format attr='border-width' value='0' />
-                <format attr='margin' value='8' />
-              </zone-style>
-            </zone>
-          </zones>
+          <zones />
         </devicelayout>
       </devicelayouts>
       <simple-id uuid='{CBFEEC86-780C-4B77-A995-1711FD89C3D5}' />
     </dashboard>
   </dashboards>
   <windows source-height='63'>
-    <window class='worksheet' name='Sheet 1'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{1B548157-0E79-4431-BB00-9C1F81820777}' />
-    </window>
-    <window class='worksheet' name='Sheet 2'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{C2F41838-FB8C-4535-9B2E-3E41D98D1D59}' />
-    </window>
-    <window class='dashboard' name='Dashboard 1'>
+    <window class='dashboard' maximized='true' name='Dashboard 1'>
       <viewpoints>
         <viewpoint name='Top Right'>
           <zoom type='entire-view' />
@@ -19239,10 +19079,10 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='9' />
+      <active id='6' />
       <simple-id uuid='{FF4890D7-0D87-46CB-A2CB-140B7A3A7EDF}' />
     </window>
-    <window class='worksheet' name='Sheet 3'>
+    <window class='worksheet' name='Top left'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -19264,58 +19104,7 @@
         </edge>
         <edge name='right'>
           <strip size='160'>
-            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:StockCode:nk]' type='filter' />
-            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk]' show-domain='false' show-null-ctrls='false' type='filter' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{38465608-0BAD-4792-BCFB-FAD7E7E01A60}' />
-    </window>
-    <window class='worksheet' name='Sheet 4'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='title' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{BDAC4852-D884-4ADC-97DC-C0EBF6337233}' />
-    </window>
-    <window class='worksheet' maximized='true' name='Top left'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
+            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:6]' show-domain='false' show-null-ctrls='false' type='filter' />
             <card pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type='color' />
           </strip>
         </edge>
@@ -19352,7 +19141,7 @@
       </cards>
       <simple-id uuid='{B762E7C1-90B8-4925-92B7-2DB1DE996520}' />
     </window>
-    <window class='worksheet' name='Sheet 7'>
+    <window class='worksheet' name='Left bottom'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -19372,8 +19161,71 @@
             <card type='title' />
           </strip>
         </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:7]' show-domain='false' show-null-ctrls='false' type='filter' />
+            <card pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]' type='color' />
+          </strip>
+        </edge>
       </cards>
       <simple-id uuid='{1CCAD5B4-9C27-4F1D-9BC0-4DAA913C213D}' />
+    </window>
+    <window class='worksheet' name='Right bottom'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:7]' show-domain='false' show-null-ctrls='false' type='filter' />
+            <card pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Customer ID:ok]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{3B9B59C6-CB2C-46E3-957D-2584A15E61B1}' />
+    </window>
+    <window class='worksheet' name='Sheet 5'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:8]' show-domain='false' show-null-ctrls='false' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{04BC920A-9D4D-4E55-9162-5DA8517FFFE4}' />
     </window>
   </windows>
 </workbook>
