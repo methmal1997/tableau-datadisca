@@ -39,8 +39,8 @@
           <member value='2011' />
         </members>
       </column>
-      <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-        <calculation class='tableau' formula='20' />
+      <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='50'>
+        <calculation class='tableau' formula='50' />
         <members>
           <member value='10' />
           <member value='20' />
@@ -355,9 +355,6 @@
           <table-calc ordering-type='Rows' />
         </calculation>
       </column>
-      <column caption='top n quntity pre' datatype='real' name='[Calculation_1279585256607756288]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='IF [Parameter 1]=10&#13;&#10;THEN [Quantity]' />
-      </column>
       <column caption='buttonN' datatype='real' name='[Calculation_191402993476808706]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='IF [Parameters].[Parameter 4]=&quot;Quantity&quot;&#13;&#10;THEN [Quantity]&#13;&#10;ELSEIF [Parameters].[Parameter 4]=&quot;Price&quot;&#13;&#10;THEN [Price]&#13;&#10;END' />
       </column>
@@ -544,6 +541,8 @@
       <column-instance aggregation-param='5' column='[Quantity]' derivation='Percentile' name='[prc5:Quantity:qk]' pivot='key' type='quantitative' />
       <column-instance column='[Calculation_231653914859118592]' derivation='Sum' name='[sum:Calculation_231653914859118592:qk]' pivot='key' type='quantitative' />
       <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:vtmax:qk]' pivot='key' type='quantitative' visual-totals='Max' />
+      <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:vtnone:qk]' pivot='key' type='quantitative' visual-totals='None' />
       <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:vtsum:qk]' pivot='key' type='quantitative' visual-totals='Sum' />
       <column-instance column='[Invoice]' derivation='Sum' name='[sum:Invoice:qk]' pivot='key' type='quantitative' />
       <column-instance column='[Price]' derivation='Sum' name='[sum:Price:qk]' pivot='key' type='quantitative' />
@@ -671,6 +670,12 @@
             </map>
             <map to='#e15759'>
               <bucket>&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:qk]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:vtmax:qk]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:vtnone:qk]&quot;</bucket>
             </map>
             <map to='#e15759'>
               <bucket>&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:vtsum:qk]&quot;</bucket>
@@ -34683,8 +34688,8 @@
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
-            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-              <calculation class='tableau' formula='20' />
+            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='50'>
+              <calculation class='tableau' formula='50' />
             </column>
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
@@ -34811,8 +34816,8 @@
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
-            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-              <calculation class='tableau' formula='20' />
+            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='50'>
+              <calculation class='tableau' formula='50' />
             </column>
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
@@ -35142,8 +35147,8 @@
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
-            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-              <calculation class='tableau' formula='20' />
+            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='50'>
+              <calculation class='tableau' formula='50' />
             </column>
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
@@ -35262,8 +35267,8 @@
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
-            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-              <calculation class='tableau' formula='20' />
+            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='50'>
+              <calculation class='tableau' formula='50' />
             </column>
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
@@ -35291,7 +35296,6 @@
               <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' type='PctTotal' />
             </column-instance>
             <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:vtsum:qk]' pivot='key' type='quantitative' visual-totals='Sum' />
             <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk:1]' pivot='key' type='quantitative'>
               <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' />
             </column-instance>
@@ -35349,117 +35353,15 @@
                 <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Quantity:qk:6]>]]></run>
                 <run>Æ&#10;</run>
                 <run fontcolor='#787878'>index along Description:&#9;</run>
-                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:1]>]]></run>
+                <run bold='true'><![CDATA[<[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:1]>                  ]]></run>
               </formatted-text>
             </customized-tooltip>
           </pane>
         </panes>
-        <rows onTop='true' total='true'>[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:vtsum:qk]</rows>
+        <rows onTop='true' total='true'>[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:qk]</rows>
         <cols>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]</cols>
       </table>
       <simple-id uuid='{2ED65902-3234-4560-BE7D-387B124939EF}' />
-    </worksheet>
-    <worksheet name='top right (2)'>
-      <layout-options>
-        <title>
-          <formatted-text>
-            <run>Top  &lt;</run>
-            <run>[Parameters].[Parameter 1 (copy)]</run>
-            <run>&gt; based on revenue</run>
-          </formatted-text>
-        </title>
-      </layout-options>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
-            <datasource name='Parameters' />
-          </datasources>
-          <datasource-dependencies datasource='Parameters'>
-            <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-              <calculation class='tableau' formula='20' />
-            </column>
-          </datasource-dependencies>
-          <datasource-dependencies datasource='federated.17er4yf0rfizty1cyl5fy09712a1'>
-            <column caption='index' datatype='integer' name='[Calculation_1092967341827436546]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='INDEX()'>
-                <table-calc ordering-type='Rows' />
-              </calculation>
-            </column>
-            <column caption='Revenue' datatype='real' name='[Calculation_868350311741374471]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='[Price]*[Quantity]' />
-            </column>
-            <column datatype='string' name='[Description]' role='dimension' type='nominal' />
-            <column caption='Invoice Date' datatype='datetime' name='[InvoiceDate]' role='dimension' type='ordinal' />
-            <column datatype='real' name='[Price]' role='measure' type='quantitative' />
-            <column datatype='integer' name='[Quantity]' role='measure' type='quantitative' />
-            <column-instance column='[Description]' derivation='None' name='[none:Description:nk]' pivot='key' type='nominal' />
-            <column-instance column='[Price]' derivation='Sum' name='[pcto:cum:sum:Price:qk:1]' pivot='key' type='quantitative'>
-              <table-calc aggregation='Sum' ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' type='CumTotal' />
-              <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' type='PctTotal' />
-            </column-instance>
-            <column-instance column='[Price]' derivation='Sum' name='[pcto:sum:Price:qk:5]' pivot='key' type='quantitative'>
-              <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' type='PctTotal' />
-            </column-instance>
-            <column-instance column='[Quantity]' derivation='Sum' name='[pcto:sum:Quantity:qk:6]' pivot='key' type='quantitative'>
-              <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' type='PctTotal' />
-            </column-instance>
-            <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[Calculation_868350311741374471]' derivation='Sum' name='[sum:Calculation_868350311741374471:vtsum:qk]' pivot='key' type='quantitative' visual-totals='Sum' />
-            <column-instance column='[Calculation_1092967341827436546]' derivation='User' name='[usr:Calculation_1092967341827436546:qk:1]' pivot='key' type='quantitative'>
-              <table-calc ordering-field='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' ordering-type='Field' />
-            </column-instance>
-            <column-instance column='[InvoiceDate]' derivation='Year' name='[yr:InvoiceDate:ok]' pivot='key' type='ordinal' />
-          </datasource-dependencies>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]'>
-            <groupfilter function='union' user:op='manual'>
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:cum:sum:Price:qk:1]&quot;' />
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Price:qk:5]&quot;' />
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[pcto:sum:Quantity:qk:6]&quot;' />
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:vtsum:qk]&quot;' />
-              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.17er4yf0rfizty1cyl5fy09712a1].[usr:Calculation_1092967341827436546:qk:1]&quot;' />
-            </groupfilter>
-          </filter>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' filter-group='3'>
-            <groupfilter count='[Parameters].[Parameter 1 (copy)]' end='top' function='end' units='records' user:ui-marker='end' user:ui-top-by-field='true'>
-              <groupfilter direction='DESC' expression='SUM([Calculation_868350311741374471])' function='order' user:ui-marker='order'>
-                <groupfilter function='level-members' level='[none:Description:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-              </groupfilter>
-            </groupfilter>
-          </filter>
-          <filter class='categorical' column='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' filter-group='4'>
-            <groupfilter count='10' end='top' function='end' units='records' user:ui-marker='end' user:ui-top-by-field='true'>
-              <groupfilter direction='DESC' expression='COUNT([InvoiceDate])' function='order' user:ui-marker='order'>
-                <groupfilter function='level-members' level='[yr:InvoiceDate:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-              </groupfilter>
-            </groupfilter>
-          </filter>
-          <shelf-sorts>
-            <shelf-sort-v2 dimension-to-sort='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.17er4yf0rfizty1cyl5fy09712a1].[sum:Calculation_868350311741374471:qk]' shelf='columns' />
-          </shelf-sorts>
-          <slices>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]</column>
-            <column>[federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names]</column>
-          </slices>
-          <aggregation value='true' />
-        </view>
-        <style />
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <encodings>
-              <text column='[federated.17er4yf0rfizty1cyl5fy09712a1].[Multiple Values]' />
-            </encodings>
-          </pane>
-        </panes>
-        <rows onTop='true' total='true'>([federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok] / [federated.17er4yf0rfizty1cyl5fy09712a1].[:Measure Names])</rows>
-        <cols>[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]</cols>
-      </table>
-      <simple-id uuid='{BCF5BC2E-EC44-489A-A08F-3D4CF0B78E94}' />
     </worksheet>
   </worksheets>
   <dashboards>
@@ -35471,8 +35373,8 @@
         <datasource caption='Year 2009-2010+ (online_retail_II)' name='federated.17er4yf0rfizty1cyl5fy09712a1' />
       </datasources>
       <datasource-dependencies datasource='Parameters'>
-        <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='20'>
-          <calculation class='tableau' formula='20' />
+        <column caption='Parameter 1 ' datatype='integer' name='[Parameter 1 (copy)]' param-domain-type='list' role='measure' type='quantitative' value='50'>
+          <calculation class='tableau' formula='50' />
           <members>
             <member value='10' />
             <member value='20' />
@@ -35967,7 +35869,7 @@
       </cards>
       <simple-id uuid='{AD41C204-6B45-4674-8E92-FC63183BA53A}' />
     </window>
-    <window class='worksheet' name='top right'>
+    <window class='worksheet' maximized='true' name='top right'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -35996,37 +35898,6 @@
         </edge>
       </cards>
       <simple-id uuid='{C36DBCB8-2749-481E-B6F8-82A3289DB9EF}' />
-    </window>
-    <window class='worksheet' maximized='true' name='top right (2)'>
-      <cards>
-        <edge name='left'>
-          <strip size='160'>
-            <card type='pages' />
-            <card type='filters' />
-            <card type='marks' />
-            <card type='measures' />
-          </strip>
-        </edge>
-        <edge name='top'>
-          <strip size='2147483647'>
-            <card type='columns' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='rows' />
-          </strip>
-          <strip size='2147483647'>
-            <card type='title' />
-          </strip>
-        </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type='filter' />
-            <card param='[federated.17er4yf0rfizty1cyl5fy09712a1].[none:Description:nk]' type='filter' />
-            <card pane-specification-id='0' param='[federated.17er4yf0rfizty1cyl5fy09712a1].[yr:InvoiceDate:ok]' type='color' />
-          </strip>
-        </edge>
-      </cards>
-      <simple-id uuid='{C51F9510-E085-4034-B1B3-FC49237455B0}' />
     </window>
     <window class='worksheet' name='bottom left'>
       <cards>
