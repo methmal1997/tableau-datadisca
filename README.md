@@ -1,27 +1,3 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-# Dashboard Exercise 1: Retail Dashboard
-
-## License
-This code is hosted in a private repository to regulate access. 
-You can share your work under MIT license.
-After completing the module host the end product in an open repository.  
-
-## Branch
- Make sure you know your branch of this module.  
- The modules are evolving. 
- Therefore, we create a branch for you when we assign the module.  
- Read `README.md` of your branch.
- 
- ARE YOU READING THE RIGHT BRANCH?
- 
- If there is any doubt contact DataDisca.
- 
- ## 
- 
- ## Application
- Note: The following is the basic guid line, you need to make the dashboard user friendly and easy to follow.
-1. Download [Online Retail II Data Set](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II). URL:https://archive.ics.uci.edu/ml/datasets/Online+Retail+II
-1. Read the data descriptions given on the download website 
 1. Create a dashboard with the following features:  
       
     * Selections at the top:
